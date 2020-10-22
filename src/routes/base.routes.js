@@ -1,9 +1,19 @@
-import routes from './dummy/routes.bootstrap';
+import { Router } from 'express';
+import {routes, initialize } from './dummy/route.bootstrap';
+const router = Router();
+
 export class BaseRouter{
-  this.coreRoutes = routes || {};
-  static init(){
-    Object.values(this.coreRoutes).map(routes =>{
-      return routes.attachedRoutes()
-    })
-  }
+ constructor(){
+   this.coreRoutes = routes(router) || {};
+ }
+
+ init(){
+   return initialize(this.coreRoutes)
+ }
+
+ getRouter(){
+   return router;
+ }
+
+
 }

@@ -1,4 +1,4 @@
-import PostValidator from '../helpers/dummy/validator.helpers';
+// import PostValidator from '../helpers/dummy/validator.helpers';
 export class DummyController{
    static getAll(){}
 

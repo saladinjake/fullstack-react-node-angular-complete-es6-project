@@ -1,9 +1,13 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import express , { Router }from 'express';
+import express , { Router } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
+
+
+import { BaseRouter } from '../routes/base.routes';
+
 
 
 export class App{
@@ -14,8 +18,10 @@ export class App{
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({extended:false}))
     // this.express.disable('x-')
+    this.appRouter = new BaseRouter();
+    this.appRouter.init();
 
-    const routes = Router();
+    this.routes = this.appRouter.getRouter();
     this.express.get('/', (request,response)=>{
       return response.status(200).json({
         status:200,
@@ -23,7 +29,7 @@ export class App{
       })
     })
     this.port = process.env.PORT || 3001;
-    this.express.use('api/v1', routes)
+    this.express.use('api/v1', this.routes)
   }
 
   run(){
