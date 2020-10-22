@@ -56,21 +56,41 @@ export class Validator{
     this.passed = true;
     this.error ="";
   }
-  static testTitleValidation(description){}
-  static testIdValidation(id){}
-  static testDescriptionValidation(description){}
+  static testTitleValidation(description){
+
+  }
+  static testIdValidation(id){
+    if (typeof id !== 'number') {
+      this.passed = false;
+      this.error = 'Type of id must be a number';
+    }
+  }
+  static testDescriptionValidation(description){
+    if (typeof description !== 'string' || description.length > 300) {
+      this.passed = false;
+      this.error = 'Description must be characters not exceeding 300 words';
+    }
+  }
   static testAllValidation(data){
      Validator.testIdValidation(data.id);
      Validator.testTitleValidation(data.title);
      Validator.testDescriptionValidation(data.description)
 
      if(this.passed){
-       return {data,valid:true}
+       return next()
      }else{
-       return {
-         data,valid:false
-       }
+       return  response.status(403).json(
+          {
+            status: 400,
+            data : err,
+            message : "Invalid Input"
+          }
+        )
      }
+
+
   }
+
+
 
 }

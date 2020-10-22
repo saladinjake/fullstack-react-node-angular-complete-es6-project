@@ -123,4 +123,9 @@ export class DummyController{
      const result = DUMMY_DATABASE.filter(item => item.id == id)
      return result;
    }
+
+
+   static login(request,response){}
+
+   static register(request,response){}
 }

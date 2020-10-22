@@ -8,8 +8,11 @@ export class DummyRoutes{
    attachedRoutes(){
      this.router.get('/dummy-request',[ verifyToken], DummyController.getAll);
      this.router.get('/dummy-request/:id', [ verifyToken], DummyController.getById);
-     this.router.post('/dummy-request', [ verifyToken], DummyController.save);
+     this.router.post('/dummy-request', [ verifyToken,Validator.testAllValidation], DummyController.save);
      this.router.patch('/dummy-request/:id/edit',  [verifyToken], DummyController.update);
      this.router.delete('/dummy-request/:id/delete', [verifyToken], DummyController.delete);
+
+     this.router.get('/dummy-request/auth/login', [ verifyToken], DummyController.logIn);
+     this.router.get('/dummy-request/auth/register', [ verifyToken], DummyController.register);
    }
 }
