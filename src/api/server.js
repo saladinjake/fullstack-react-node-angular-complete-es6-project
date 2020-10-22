@@ -6,9 +6,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 
-
-
-
 export class App{
   constructor(){
     this.express = express();
@@ -16,7 +13,6 @@ export class App{
     this.express.use(helmet());
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({extended:false}))
-
     // this.express.disable('x-')
 
     const routes = Router();
