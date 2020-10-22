@@ -1,12 +1,12 @@
-import PostValidator from '../helpers/dummy/validator';
+import PostValidator from '../helpers/dummy/validator.helpers';
 export class DummyController{
    static getAll(){}
 
-   static getById(){}
+   static getById(id){}
 
    static save(){}
 
-   static update(){}
+   static update(id,data){}
 
    static delete(){}
 }
