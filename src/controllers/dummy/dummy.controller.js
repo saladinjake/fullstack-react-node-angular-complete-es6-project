@@ -1,6 +1,7 @@
 import { alldbs } from '../../models/index'
-const DUMMY_DATABASE = alldbs.dummydb;
-// import PostValidator from '../helpers/dummy/validator.helpers';
+const DUMMY_DATABASE_RECORD_TABLE = alldbs.dummydb;
+const DUMMY_DATABASE_USER_TABLE = alldbs.userdb;
+import {generateToken} from '../../helpers/dummy/validator.helpers';
 export class DummyController{
    static getAll(request,response){
 
@@ -15,7 +16,7 @@ export class DummyController{
          return response.status(200).json(
          {
            status: 200,
-           data : DUMMY_DATABASE,
+           data : DUMMY_DATABASE_RECORD_TABLE,
            message : "Resource Exists"
          }
        )
@@ -51,7 +52,7 @@ export class DummyController{
 
    static save(request,response){
      const {title,description} = request.body;
-     DUMMY_DATABASE.push({title,description})
+     DUMMY_DATABASE_RECORD_TABLE.push({title,description})
      return response.status(201).json(
      {
       status: 201,
@@ -76,8 +77,8 @@ export class DummyController{
     }else{
        const {title,description} = request.body;
        const result = DummyController.findAndRespond(validId);
-       const index = DUMMY_DATABASE.indexOf(result);
-       const deleteOperation = DUMMY_DATABASE.splice(index,1)
+       const index = DUMMY_DATABASE_RECORD_TABLE.indexOf(result);
+       const deleteOperation = DUMMY_DATABASE_RECORD_TABLE.splice(index,1)
        DUMMY_DATABASE[index] = {title,description}
 
        return response.status(200).json(
@@ -105,8 +106,8 @@ export class DummyController{
 
     }else{
        const result = DummyController.findAndRespond(id);
-       const index = DUMMY_DATABASE.indexOf(result);
-       const deleteOperation = DUMMY_DATABASE.splice(index,1)
+       const index = DUMMY_DATABASE_RECORD_TABLE.indexOf(result);
+       const deleteOperation = DUMMY_DATABASE_RECORD_TABLE.splice(index,1)
 
        return response.status(200).json(
          {
@@ -120,12 +121,53 @@ export class DummyController{
    }
 
    static findAndRespond(id){
-     const result = DUMMY_DATABASE.filter(item => item.id == id)
+     const result = DUMMY_DATABASE_RECORD_TABLE.filter(item => item.id == id)
      return result;
    }
 
 
-   static login(request,response){}
+   static login(request,response){
+     const user = DUMMY_DATABASE_USER_TABLE.filter(user => user.email == request.body.email )
 
-   static register(request,response){}
+     if(user){
+       //if user exist during login then check matching password
+       this.passed = false;
+       this.error = 'Invalid Email';
+       return  response.status(200).json(
+          {
+            status: 200,
+            data : [{user,token: generateToken({
+              id: user.id,
+              username: user.username
+            }) }],
+            message : "User found"
+          }
+        )
+     }else{
+       return  response.status(404).json(
+          {
+            status: 404,
+            data : [{
+            }],
+            message : "User Not found"
+          }
+        )
+
+     }
+
+   }
+
+   static register(request,response){
+     //DONT WORRY THE MIDDLE WARE WILL VALIDATE THE POST DATA
+     const {title,description} = request.body;
+     DUMMY_DATABASE_USER_TABLE.push({title,description})
+     return response.status(201).json(
+     {
+      status: 201,
+      data : [{title,description}],
+      message : "Created New Resource"
+     }
+    )
+
+   }
 }

@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 const ENCRYPTION_KEY = "KISS-OF-DEATH-IS-THE-SECRET-KEY-TO-LIFE-BEYOND"
 
+import { dummydb, userdb } from '../../models/dummy/dummy.data'
 
 
 export const verifyToken = (request,response,next) => {
@@ -24,7 +25,7 @@ export const verifyToken = (request,response,next) => {
      return response.status(403).json(
        {
          status: 403,
-         data : err,
+         data : [],
          message : "Unauthorized access"
        }
      )
@@ -41,7 +42,7 @@ export const verifyAdminToken =(request,response,next) =>{
        return response.status(403).json(
          {
            status: 403,
-           data : err,
+           data : [],
            message : "Unauthorized access"
          }
        )
@@ -82,12 +83,106 @@ export class Validator{
        return  response.status(403).json(
           {
             status: 400,
-            data : err,
+            data : [],
             message : "Invalid Input"
           }
         )
      }
 
+
+  }
+
+  static preventDoubleSignup(request,response,next){
+      const {email, password, username} = request.body;
+
+      const user = userdb.filter(user => user.email == email )
+
+      if(user){
+        //if user exist during login then check matching password
+        this.passed = false;
+        this.error = 'User already exist with this email';
+        return  response.status(404).json(
+           {
+             status: 404,
+             data : [],
+             message : "User already exist with this email"
+           }
+         )
+      }
+
+  }
+
+  static validateLogin(request,response, next){
+    const {email, password} = request.body;
+    this.passed = true;
+    if (typeof email !== 'string' || email.length <= 4) {
+      this.passed = false;
+      this.error = 'Invalid Email';
+
+      return  response.status(403).json(
+         {
+           status: 400,
+           data : [],
+           message : "Invalid Input"
+         }
+       )
+    }
+
+    if (typeof password !== 'string' || password.length <= 2) {
+      this.passed = false;
+      this.error = 'Invalid Email';
+
+      return  response.status(403).json(
+         {
+           status: 400,
+           data : [],
+           message : "Invalid Input"
+         }
+       )
+    }
+
+    const user = userdb.filter(user => user.email == email )
+
+    if(!user){
+      //if user exist during login then check matching password
+      this.passed = false;
+      this.error = 'Invalid Email';
+      return  response.status(404).json(
+         {
+           status: 404,
+           data : [],
+           message : "User Not found"
+         }
+       )
+    }
+
+    if (!checkMatchPassword(password,user.password)) {
+      this.passed = false;
+      this.error = 'Invalid Email';
+
+      return  response.status(403).json(
+         {
+           status: 400,
+           data : [],
+           message : "Invalid Input"
+         }
+       )
+    }
+
+    //if all is safe
+    if(this.passed){
+      return next()
+    }else{
+
+      return  response.status(403).json(
+         {
+           status: 400,
+           data : [],
+           message : "Some error occured"
+         }
+       )
+
+    }
 
   }
 
