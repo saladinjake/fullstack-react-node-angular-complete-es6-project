@@ -3,6 +3,9 @@ const DUMMY_DATABASE_RECORD_TABLE = alldbs.dummydb;
 const DUMMY_DATABASE_USER_TABLE = alldbs.userdb;
 import {generateToken} from '../../helpers/dummy/validator.helpers';
 export class DummyController{
+  constructor(){
+    this.defaultRoute = "index"
+  }
    static getAll(request,response){
 
       if( DUMMY_DATABASE.length <=0 ){
