@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FrogRiverOne - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the earliest time when a frog can jump to the other side of a river.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(X, A) {
+    var i, cnt = 0;
+    var arr = Array.apply(null, new Array(X + 1)).map(Number.prototype.valueOf, 0);
+    for (i = 0; i < A.length; i++) {
+        if (arr[A[i]] === 0) {
+            arr[A[i]] = 1;
+            cnt++;
+        }
+        if (cnt == X)
+            return i;
+    }
+    return -1;
+}
+</script>
+
+<body>
+    <p>Task name: FrogRiverOne
+        <br/>Find the earliest time when a frog can jump to the other side of a river.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/2">codility.com/programmers/lessons/2</a>
+    <br/>
+    <p>A small frog wants to get to the other side of a river. The frog is currently located at position 0, and wants to get to position X. Leaves fall from a tree onto the surface of the river.</p>
+    <p>You are given a non-empty zero-indexed array A consisting of N integers representing the falling leaves. A[K] represents the position where one leaf falls at time K, measured in minutes.</p>
+    <p>The goal is to find the earliest time when the frog can jump to the other side of the river. The frog can cross only when leaves appear at every position across the river from 1 to X.</p>
+    <p>For example, you are given integer X = 5 and array A such that:</p>
+    <code>A[0] = 1
+        <br/>A[1] = 3
+        <br/>A[2] = 1
+        <br/>A[3] = 4
+        <br/>A[4] = 2
+        <br/>A[5] = 3
+        <br/>A[6] = 5
+        <br/>A[7] = 4
+    </code>
+    <p>In minute 6, a leaf falls into position 5. This is the earliest time when leaves appear in every position across the river.</p>
+    <p>Write a function:</p>
+    <code>function solution(X, A);</code>
+    <p>that, given a non-empty zero-indexed array A consisting of N integers and integer X, returns the earliest time when the frog can jump to the other side of the river.</p>
+    <p>If the frog is never able to jump to the other side of the river, the function should return −1. For example, given X = 5 and array A such that:</p>
+    <code>A[0] = 1
+        <br/>A[1] = 3
+        <br/>A[2] = 1
+        <br/>A[3] = 4
+        <br/>A[4] = 2
+        <br/>A[5] = 3
+        <br/>A[6] = 5
+        <br/>A[7] = 4</code>
+    <p>the function should return 6, as explained above.</p>
+
+</body>
+
+</html>

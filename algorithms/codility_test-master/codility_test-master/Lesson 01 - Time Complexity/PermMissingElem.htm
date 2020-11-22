@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PermMissingElem - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the missing element in a given permutation.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    N = A.length + 1;
+    total = N * (N + 1) / 2;
+    for (i = 0; i < A.length; i++) {
+        total -= A[i];
+    }
+    return total;
+}
+</script>
+
+<body>
+    <p>Task name: PermMissingElem
+        <br/>Find the missing element in a given permutation.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/1">codility.com/programmers/lessons/1</a>
+    <br/>
+    <p>A zero-indexed array A consisting of N different integers is given. The array contains integers in the range [1..(N + 1)], which means that exactly one element is missing.</p>
+    <p>Your goal is to find that missing element. Write a function:</p>
+    <code>int solution(int A[], int N);</code>
+    <p>that, given a zero-indexed array A, returns the value of the missing element.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = 2
+        <br/>A[1] = 3
+        <br/>A[2] = 1
+        <br/>A[3] = 5</code>
+    <p>the function should return 4, as it is the missing element.
+    </p>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CountNonDivisible - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Calculate the number of elements of an array that are not divisors of each element.
+">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var N = A.length;
+    // stores the numbers of every element in A
+    var counters = Array.apply(null, new Array(2 * N + 1)).map(function() {
+        return 0;
+    });
+    // stores the numbers of divisors of A[i]
+    var divisors = Array.apply(null, new Array(2 * N + 1)).map(function() {
+        return 0;
+    });
+    // stores the numbers of non-divisors of A[i]
+    var nonDivisors = new Array(N);
+    for (i = 0; i < N; i++) {
+        
+        if(counters[A[i]] > 0)
+            counters[A[i]]++;
+        else 
+            counters[A[i]]=1;
+    }
+    // using the algorithm of Sieve of Eratosthenes
+    for (i = 1; i <= 2 * N; i++) {
+        // i is the element of A
+        if (counters[i] > 0) {
+            var k = i;
+            while (k <= 2 * N) {
+                // k is also an element of A and the multiple of i
+                if (counters[k] > 0) {
+                    divisors[k] += counters[i];
+                }
+                k += i;
+            }
+        }
+    }
+    // the numbers of non-divisors and divisors is N
+    for (i = 0; i < N; i++) {
+        nonDivisors[i] = N - divisors[A[i]];
+    }
+    
+    return nonDivisors;
+}
+</script>
+
+<body>
+    <p>Task name: CountNonDivisible
+        <br/>Calculate the number of elements of an array that are not divisors of each element.
+
+    </p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/9">codility.com/programmers/lessons/9</a>
+    <br/>
+    <p>You are given a non-empty zero-indexed array A consisting of N integers.</p>
+    <p>For each number A[i] such that 0 ≤ i &lp; N, we want to count the number of elements of the array that are not the divisors of A[i]. We say that these elements are non-divisors.</p>
+    <p>For example, consider integer N = 5 and array A such that:</p>
+    <code>
+        A[0] = 3
+        <br/>A[1] = 1
+        <br/>A[2] = 2
+        <br/>A[3] = 3
+        <br/>A[4] = 6
+    </code>
+    <p>For the following elements:</p>
+    <code>
+        A[0] = 3, the non-divisors are: 2, 6,
+        <br/>A[1] = 1, the non-divisors are: 3, 2, 3, 6,
+        <br/>A[2] = 2, the non-divisors are: 3, 3, 6,
+        <br/>A[3] = 3, the non-divisors are: 2, 6,
+        <br/>A[6] = 6, there aren't any non-divisors.</code>
+    <p>Write a function:</p>
+    <code>stfunction solution(A);</code>
+    <p>that, given a non-empty zero-indexed array A consisting of N integers, returns a sequence of integers representing the amount of non-divisors.</p>
+    <p>The sequence should be returned as an array of integers (in any other programming language).</p>
+    <p>For example, given:</p>
+    <code>A[0] = 3
+        <br/>A[1] = 1
+        <br/>A[2] = 2
+        <br/>A[3] = 3
+        <br/>A[4] = 6</code>
+    <p>the function should return [2, 4, 3, 2, 0], as explained above.</p>
+
+</body>
+
+</html>

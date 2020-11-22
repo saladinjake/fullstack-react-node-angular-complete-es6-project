@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FibFrog - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="There are N chocolates in a circle. Count the number of chocolates you will eat.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var N = A.length,
+        fib = new Array(N + 4),
+        visit = Array.apply(null, new Array(N)).map(function() {return 0;});
+    fib[0] = 0;
+    fib[1] = 1;
+    var m = 1;
+    do {
+        m++;
+        fib[m] = fib[m - 1] + fib[m - 2];
+    } while (fib[m] <= N + 1);
+
+    var statusQueue = [];
+    // use a queue to save the position and the moves of every possible jump
+    statusQueue.push([-1, 0]);
+    var nextTry = 0;
+    // use the breadth first search to get the result
+    while (true) {
+        if (nextTry == statusQueue.length)
+            return -1;
+        var currStatus = statusQueue[nextTry],
+            currPosition = currStatus[0],
+            currMoves = currStatus[1];
+        nextTry++;
+
+        for (var i = m - 1; i > 0; i--) {
+            if (currPosition + fib[i] == N)
+                return currMoves + 1;
+            else if (currPosition + fib[i] > N ||
+                A[currPosition + fib[i]] === 0 ||
+                visit[currPosition + fib[i]] === true)
+                continue;
+            statusQueue.push([currPosition + fib[i], currMoves + 1]);
+            visit[currPosition + fib[i]] = true;
+        }
+    }
+}
+</script>
+
+<body>
+    <p>Task name: FibFrog
+        <br/>There are N chocolates in a circle. Count the number of chocolates you will eat.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/11">codility.com/programmers/lessons/11</a>
+    <br/>
+    <p>The Fibonacci sequence is defined using the following recursive formula:</p>
+    <code>
+        F(0) = 0
+        <br/>F(1) = 1
+        <br/>F(M) = F(M - 1) + F(M - 2) if M >= 2</code>
+    <p>A small frog wants to get to the other side of a river. The frog is initially located at one bank of the river (position −1) and wants to get to the other bank (position N). The frog can jump over any distance F(K), where F(K) is the K-th Fibonacci number. Luckily, there are many leaves on the river, and the frog can jump between the leaves, but only in the direction of the bank at position N.</p>
+    <p>The leaves on the river are represented in a zero-indexed array A consisting of N integers. Consecutive elements of array A represent consecutive positions from 0 to N − 1 on the river. Array A contains only 0s and/or 1s:</p>
+    <code>
+        0 represents a position without a leaf;
+        <br/>1 represents a position containing a leaf.</code>
+    <p>The goal is to count the minimum number of jumps in which the frog can get to the other side of the river (from position −1 to position N). The frog can jump between positions −1 and N (the banks of the river) and every position containing a leaf.</p>
+    <p>For example, consider array A such that:</p>
+    <code>
+        A[0] = 0
+        <br/>A[1] = 0
+        <br/>A[2] = 0
+        <br/>A[3] = 1
+        <br/>A[4] = 1
+        <br/>A[5] = 0
+        <br/>A[6] = 1
+        <br/>A[7] = 0
+        <br/>A[8] = 0
+        <br/>A[9] = 0
+        <br/>A[10] = 0</code>
+    <p>The frog can make three jumps of length F(5) = 5, F(3) = 2 and F(5) = 5.</p>
+    <p>Write a function:</p>
+    <code>function solution(A);</code>
+    <p>that, given a zero-indexed array A consisting of N integers, returns the minimum number of jumps by which the frog can get to the other side of the river. If the frog cannot reach the other side of the river, the function should return −1.</p>
+    <p>For example, given:</p>
+    <code>
+        A[0] = 0
+        <br/>A[1] = 0
+        <br/>A[2] = 0
+        <br/>A[3] = 1
+        <br/>A[4] = 1
+        <br/>A[5] = 0
+        <br/>A[6] = 1
+        <br/>A[7] = 0
+        <br/>A[8] = 0
+        <br/>A[9] = 0
+        <br/>A[10] = 0
+    </code>
+    <p>the function should return 3, as explained above.</p>
+
+
+</body>
+
+</html>

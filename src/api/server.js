@@ -6,6 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 
+
 import { BaseRouter } from '../routes/base.routes';
 
 
@@ -23,6 +24,8 @@ export class App{
 
     this.routes = this.appRouter.getRouter();
     this.express.get('/', (request,response)=>{
+
+
       return response.status(200).json({
         status:200,
         message: "Live with turring senior software developer"

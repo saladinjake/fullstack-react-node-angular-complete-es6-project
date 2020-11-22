@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MinMaxDivision - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Divide array A into K blocks and minimize the largest sum of any block.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function blockSizeIsValid( A, max_block_cnt, max_block_size ) {
+    var block_sum = 0,
+        block_cnt = 0;
+ 
+    for (var i=0; i<A.length; i++) {
+        var element = A[i];
+        if (block_sum + element > max_block_size) {
+            block_sum = element;
+            block_cnt += 1;
+        } else {
+            block_sum += element;
+        }
+        if (block_cnt >= max_block_cnt)
+            return false;
+    }
+    return true;
+}
+//
+function binarySearch ( A, max_block_cnt, using_M_will_give_you_wrong_results ) {
+    var lower_bound = Math.max.apply(null, A),
+    upper_bound = A.reduce(function(pv, cv) { return pv + cv; }, 0);
+ 
+    if ( max_block_cnt == 1 )      return upper_bound;
+    if ( max_block_cnt >= A.length ) return lower_bound;
+ 
+    while ( lower_bound <= upper_bound ) {
+        candidate_mid = Math.floor((lower_bound + upper_bound) / 2);
+        if ( blockSizeIsValid( A, max_block_cnt, candidate_mid)) 
+            upper_bound = candidate_mid - 1;
+        else
+            lower_bound = candidate_mid + 1;
+    }
+    //console.log(lower_bound);
+    return lower_bound;
+}
+//
+function solution(K, M, A) {
+    return binarySearch(A, K, M);
+}
+</script>
+
+<body>
+    <p>Task name: MinMaxDivision
+        <br/>Divide array A into K blocks and minimize the largest sum of any block.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/12">codility.com/programmers/lessons/12</a>
+    <br/>
+<p>You are given integers K, M and a non-empty zero-indexed array A consisting of N integers. Every element of the array is not greater than M.</p>
+    <p>You should divide this array into K blocks of consecutive elements. The size of the block is any integer between 0 and N. Every element of the array should belong to some block.</p>
+    <p>The sum of the block from X to Y equals A[X] + A[X + 1] + ... + A[Y]. The sum of empty block equals 0.</p>
+    <p>The large sum is the maximal sum of any block.</p>
+    <p>For example, you are given integers K = 3, M = 5 and array A such that:</p>
+<code>  A[0] = 2
+  <br/>A[1] = 1
+  <br/>A[2] = 5
+  <br/>A[3] = 1
+  <br/>A[4] = 2
+  <br/>A[5] = 2
+  <br/>A[6] = 2</code>
+    <p>The array can be divided, for example, into the following blocks:</p>
+    <code>
+[2, 1, 5, 1, 2, 2, 2], [], [] with a large sum of 15;
+<br/>[2], [1, 5, 1, 2], [2, 2] with a large sum of 9;
+<br/>[2, 1, 5], [], [1, 2, 2, 2] with a large sum of 8;
+<br/>[2, 1], [5, 1], [2, 2, 2] with a large sum of 6.
+</code>
+    <p>The goal is to minimize the large sum. In the above example, 6 is the minimal large sum.</p>
+    <p>Write a function:</p>
+    <code>function solution(K, M, A);</code>
+    <p>that, given integers K, M and a non-empty zero-indexed array A consisting of N integers, returns the minimal large sum.</p>
+    <p>For example, given K = 3, M = 5 and array A such that:</p><code>
+  A[0] = 2
+  <br/>A[1] = 1
+  <br/>A[2] = 5
+  <br/>A[3] = 1
+  <br/>A[4] = 2
+  <br/>A[5] = 2
+  <br/>A[6] = 2</code>
+    <p>the function should return 6, as explained above.</p>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CountDiv - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Compute number of integers divisible by k in range [a..b].">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A, B, K) {
+    var result = 0;
+    if(A%K===0) {
+        result = Math.floor((B-A)/K)+1;
+    } else {
+        result = Math.floor(B/K-(Math.floor(A/K)+1))+1;
+    }
+    return parseInt(result);
+}
+</script>
+
+<body>
+    <p>Task name: CountDiv
+        <br/>Compute number of integers divisible by k in range [a..b].</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/3">codility.com/programmers/lessons/3</a>
+    <br/>
+    <p>Write a function:</p>
+    <code>function solution(A, B, K);</code>
+    <p>
+        that, given three integers A, B and K, returns the number of integers within the range [A..B] that are divisible by K, i.e.:</p>
+    <code>{ i : A ≤ i ≤ B, i mod K = 0 }</code>
+    <p>For example, for A = 6, B = 11 and K = 2, your function should return 3, because there are three numbers divisible by 2 within the range [6..11], namely 6, 8 and 10.</p>
+
+
+</body>
+
+</html>

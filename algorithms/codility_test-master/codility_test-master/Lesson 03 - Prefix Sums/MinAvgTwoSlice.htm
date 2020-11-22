@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MinAvgTwoSlice - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the minimal average of any slice containing at least two elements.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+var minStart = 0,  minAvg = (A[0]+A[1])/2, len = A.length;
+    for(var i=0;i<len-1;i++) {
+        var tmpAvg = (A[i]+A[i+1])/2.0;
+        if(i < len-2 && A[i+2] < tmpAvg) {
+            tmpAvg = (A[i]+A[i+1]+A[i+2])/3.0;
+        }
+        if(tmpAvg < minAvg) {
+            minAvg = tmpAvg;
+            minStart = i;
+        }
+    }
+    return minStart;
+}
+</script>
+
+<body>
+    <p>Task name: MinAvgTwoSlice
+        <br/>Find the minimal average of any slice containing at least two elements.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/3">codility.com/programmers/lessons/3</a>
+    <br/>
+    <p>A non-empty zero-indexed array A consisting of N integers is given. A pair of integers (P, Q), such that 0 ≤ P &lt; Q &lt; N, is called a slice of array A (notice that the slice contains at least two elements). The average of a slice (P, Q) is the sum of A[P] + A[P + 1] + ... + A[Q] divided by the length of the slice. To be precise, the average equals (A[P] + A[P + 1] + ... + A[Q]) / (Q − P + 1).</p>
+    <p>
+        For example, array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 2
+        <br/>A[2] = 2
+        <br/>A[3] = 5
+        <br/>A[4] = 1
+        <br/>A[5] = 5
+        <br/>A[6] = 8</code>
+    <p>contains the following example slices:</p>
+    <code>
+        <br/>slice (1, 2), whose average is (2 + 2) / 2 = 2;
+        <br/>slice (3, 4), whose average is (5 + 1) / 2 = 3;
+        <br/>slice (1, 4), whose average is (2 + 2 + 5 + 1) / 4 = 2.5.
+    </code>
+    <p>The goal is to find the starting position of a slice whose average is minimal.</p>
+    Write a function: function solution(A);
+    <p>that, given a non-empty zero-indexed array A consisting of N integers, returns the starting position of the slice with the minimal average. If there is more than one slice with a minimal average, you should return the smallest starting position of such a slice.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 2
+        <br/>A[2] = 2
+        <br/>A[3] = 5
+        <br/>A[4] = 1
+        <br/>A[5] = 5
+        <br/>A[6] = 8</code>
+    <p>the function should return 1, as explained above.</p>
+
+
+</body>
+
+</html>

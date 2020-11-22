@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CountSemiprimes - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count the semiprime numbers in the given range [a..b]">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(N, P, Q) {
+    var buf = Array.apply(null, new Array(N + 1)).map(Number.prototype.valueOf, 0);
+    for(i=2; i*i<=N; i++) {
+        if( buf[i] !== 0)
+            continue;
+        tmp = i * i;
+        while(tmp <= N) {
+            if(buf[tmp] === 0)
+                buf[tmp] = i;
+            tmp+=i;
+        }
+    }
+    //
+    var primeCount = Array.apply(null, new Array(N + 1)).map(Number.prototype.valueOf, 0);
+    for(i=4; i<=N; i++) {
+        if(buf[i] === 0) {
+            primeCount[i] = primeCount[i-1];
+            continue;
+        }
+        if( buf[i/buf[i]]===0 ) {
+            primeCount[i] = primeCount[i-1]+1;
+        } else {
+            primeCount[i] = primeCount[i-1];
+        }
+    }
+    //
+    var res = []
+    for(i=0; i<P.length; i++) {
+        res.push(primeCount[Q[i]]-primeCount[P[i]-1]);
+    }
+    //
+    return res;
+}
+</script>
+
+<body>
+    <p>Task name: CountSemiprimes
+        <br/>Count the semiprime numbers in the given range [a..b]</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/9">codility.com/programmers/lessons/9</a>
+    <br/>
+    <p>A prime is a positive integer X that has exactly two distinct divisors: 1 and X. The first few prime integers are 2, 3, 5, 7, 11 and 13.</p>
+    <p>A semiprime is a natural number that is the product of two (not necessarily distinct) prime numbers. The first few semiprimes are 4, 6, 9, 10, 14, 15, 21, 22, 25, 26.</p>
+    <p>You are given two non-empty zero-indexed arrays P and Q, each consisting of M integers. These arrays represent queries about the number of semiprimes within specified ranges.</p>
+    <p>Query K requires you to find the number of semiprimes within the range (P[K], Q[K]), where 1 ≤ P[K] ≤ Q[K] ≤ N.</p>
+    <p>For example, consider an integer N = 26 and arrays P, Q such that:</p>
+    <code>P[0] = 1 Q[0] = 26
+        <br/>P[1] = 4 Q[1] = 10
+        <br/>P[2] = 16 Q[2] = 20</code>
+    <p>The number of semiprimes within each of these ranges is as follows:</p>
+    <code>(1, 26) is 10,
+        <br/>(4, 10) is 4,
+        <br/>(16, 20) is 0.</code>
+    <p>Write a function:</p>
+    function solution(N, P, Q);
+    <p>that, given an integer N and two non-empty zero-indexed arrays P and Q consisting of M integers, returns an array consisting of M elements specifying the consecutive answers to all the queries.</p>
+    <p>For example, given an integer N = 26 and arrays P, Q such that:</p>
+    <code>P[0] = 1 Q[0] = 26
+        <br/>P[1] = 4 Q[1] = 10
+        <br/>P[2] = 16 Q[2] = 20</code>
+    <p>the function should return the values [10, 4, 0], as explained above.</p>
+
+</body>
+
+</html>

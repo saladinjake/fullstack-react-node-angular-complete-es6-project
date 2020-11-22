@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MissingInteger - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the minimal positive integer not occurring in a given sequence.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    // Create an array of booleans to represent if a number has been visited yet.
+    var counter = new Array(A.length + 1);
+    // Loop through setting each value as false. It has not been visited yet.
+    for (var i = 0; i < counter.length; i++) counter[i] = false;
+    // Loop through each value in the array, if the value is less than the length of A and greater than 0
+    // It is a valid value, set it's value in counter, it is a 0 indexed array so subtract 1!
+    for (i = 0; i < A.length; i++)
+        if (A[i] > 0 && A[i] < counter.length) counter[A[i] - 1] = true;
+        // Loop through the counter, if an element is false, return element index + 1 (it's a 0 index array!)
+    for (i = 0; i < counter.length; i++)
+        if (!counter[i]) return i + 1;
+        // You SHOULDN'T get here. But just in case, return the Array length +1. Result will most likely be 1, the lowest
+        // possible integer.
+    return A.length + 1;
+}
+</script>
+
+<body>
+    <p>Task name: MissingInteger
+        <br/>Find the minimal positive integer not occurring in a given sequence.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/2">codility.com/programmers/lessons/2</a>
+    <br/>
+    <p>Write a function:</p>
+    <code>function solution(A);</code>
+    <p>
+        that, given a non-empty zero-indexed array A of N integers, returns the minimal positive integer that does not occur in A.</p>
+    <p>For example, given:</p>
+    <code>A[0] = 1
+        <br/>A[1] = 3
+        <br/>A[2] = 6
+        <br/>A[3] = 4
+        <br/>A[4] = 1
+        <br/>A[5] = 2
+    </code>
+    <p>the function should return 5.</p>
+
+</body>
+
+</html>

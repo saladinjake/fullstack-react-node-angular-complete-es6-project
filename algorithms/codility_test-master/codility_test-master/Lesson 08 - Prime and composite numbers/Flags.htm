@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flags - codility</title>
+    <meta charset="UTF-8">
+    <meta name="Find the maximum number of flags that can be set on mountain peaks.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var peak = [],
+        len = A.length; // peaks
+    for (var i = 1; i < len - 1; i++)
+        if (A[i] > A[i - 1] && A[i] > A[i + 1])
+            peak.push(i);
+
+    n = peak.length;
+    if (n <= 2)
+        return n;
+
+    maxFlags = Math.min(parseInt(Math.ceil(Math.sqrt(len))), n); // max number of flags
+    distance = maxFlags; // required distance between flags
+    // try to set max number of flags, then 1 less, etc... (2 flags are already set)
+    for (k = maxFlags - 2; k > 0; k--) {
+        left = peak[0];
+        right = peak[n - 1];
+        need = k; // how many more flags we need to set
+
+        for (i = 1; i <= n - 2; i++) {
+            // found one more flag for $distance
+            if (peak[i] - left >= distance && right - peak[i] >= distance) {
+                if (need == 1)
+                    return k + 2;
+                need--;
+                left = peak[i];
+            }
+
+            if (right - peak[i] <= need * (distance + 1))
+                break; // impossible to set $need more flags for $distance
+        }
+
+        if (need === 0)
+            return k + 2;
+
+        distance--;
+    }
+    return 2;
+}
+</script>
+
+<body>
+    <p>Task name: Flags
+        <br/>Find the maximum number of flags that can be set on mountain peaks.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/8">codility.com/programmers/lessons/8</a>
+    <br/>
+    <p>A non-empty zero-indexed array A consisting of N integers is given.</p>
+    <p>A peak is an array element which is larger than its neighbours. More precisely, it is an index P such that 0 &lp; P &lp; N − 1 and A[P − 1] &lp; A[P] > A[P + 1].</p>
+    <p>For example, the following array A:</p>
+    <code>A[0] = 1
+        <br/>A[1] = 5
+        <br/>A[2] = 3
+        <br/>A[3] = 4
+        <br/>A[4] = 3
+        <br/>A[5] = 4
+        <br/>A[6] = 1
+        <br/>A[7] = 2
+        <br/>A[8] = 3
+        <br/>A[9] = 4
+        <br/>A[10] = 6
+        <br/>A[11] = 2</code>
+    <p>
+        has exactly four peaks: elements 1, 3, 5 and 10. You are going on a trip to a range of mountains whose relative heights are represented by array A, as shown in a figure below. You have to choose how many flags you should take with you. The goal is to set the maximum number of flags on the peaks, according to certain rules.</p>
+    <p>
+        Flags can only be set on peaks. What's more, if you take K flags, then the distance between any two flags should be greater than or equal to K. The distance between indices P and Q is the absolute value |P − Q|.</p>
+    <p>
+        For example, given the mountain range represented by array A, above, with N = 12, if you take:</p>
+    <code>two flags, you can set them on peaks 1 and 5;
+        <br/>three flags, you can set them on peaks 1, 5 and 10;
+        <br/>four flags, you can set only three flags, on peaks 1, 5 and 10.</code>
+    <p>
+        You can therefore set a maximum of three flags in this case.</p>
+    <p>Write a function:</p>
+    function solution(A);
+    <p>that, given a non-empty zero-indexed array A of N integers, returns the maximum number of flags that can be set on the peaks of the array.</p>
+    <p>For example, the following array A:</p>
+    <code>A[0] = 1
+        <br/>A[1] = 5
+        <br/>A[2] = 3
+        <br/>A[3] = 4
+        <br/>A[4] = 3
+        <br/>A[5] = 4
+        <br/>A[6] = 1
+        <br/>A[7] = 2
+        <br/>A[8] = 3
+        <br/>A[9] = 4
+        <br/>A[10] = 6
+        <br/>A[11] = 2</code>
+    <p>the function should return 3, as explained above.</p>
+
+
+</body>
+
+</html>

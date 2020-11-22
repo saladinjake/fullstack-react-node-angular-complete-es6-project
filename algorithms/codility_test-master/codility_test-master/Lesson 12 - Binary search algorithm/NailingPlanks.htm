@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NailingPlanks - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count the minimum number of nails that allow a series of planks to be nailed.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A, B, C) {
+    // the main algorithm is that getting the   minimal index of nails which
+    // is needed to nail every plank by using the binary search
+    var N = A.length,
+        M = C.length;
+    // two dimension array to save the original index of array C
+    var sortedNail = new Array(M);
+    for (int i = 0; i < M; i++) {
+        sortedNail[i] = [ 0 ,0 ];
+        sortedNail[i][0] = C[i];
+        sortedNail[i][1] = i;
+    }
+    // use the lambda expression to sort two dimension array
+    sortedNail.sort(function(a, b) {
+        return a[0] - b[0];
+    });
+    var result = 0;
+    for (i = 0; i < N; i++) {
+        result = getMinIndex(A[i], B[i], sortedNail, result);
+        if (result == -1)
+            return -1;
+    }
+    return result + 1;
+}   
+// for each plank , we can use binary search to get the minimal index of the
+// sorted array of nails, and we should check the candidate nails to get the
+// minimal index of the original array of nails.
+function getMinIndex(startPlank, endPlank, nail, preIndex) {
+    var min = 0,
+        max = nail.length - 1,
+        minIndex = -1;
+    while (min <= max) {
+        var mid = (min + max) / 2;
+        mid = Math.floor(mid);
+        if (nail[mid][0] < startPlank)
+            min = mid + 1;
+        else if (nail[mid][0] > endPlank)
+            max = mid - 1;
+        else {
+            max = mid - 1;
+            minIndex = mid;
+        }
+    }
+    if (minIndex == -1)
+        return -1;
+    var minIndexOrigin = nail[minIndex][1];
+    // this check is to get the minimal index of the original array of nails
+    for (var i = minIndex; i < nail.length; i++) {
+        if (nail[i][0] > endPlank)
+            break;
+        minIndexOrigin = Math.min(minIndexOrigin, nail[i][1]);
+        // we need the maximal index of nails to nail every plank, so the
+        // smaller index can be omitted
+        if (minIndexOrigin <= preIndex)
+            return preIndex;
+    }
+    return minIndexOrigin;
+}
+</script>
+
+<body>
+    <p>Task name: NailingPlanks
+        <br/>Count the minimum number of nails that allow a series of planks to be nailed.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/12">codility.com/programmers/lessons/12</a>
+    <br/>
+    <p>You are given two non-empty zero-indexed arrays A and B consisting of N integers. These arrays represent N planks. More precisely, A[K] is the start and B[K] the end of the K−th plank.</p>
+    <p>Next, you are given a non-empty zero-indexed array C consisting of M integers. This array represents M nails. More precisely, C[I] is the position where you can hammer in the I−th nail.</p>
+    <p>We say that a plank (A[K], B[K]) is nailed if there exists a nail C[I] such that A[K] ≤ C[I] ≤ B[K].</p>
+    <p>The goal is to find the minimum number of nails that must be used until all the planks are nailed. In other words, you should find a value J such that all planks will be nailed after using only the first J nails. More precisely, for every plank (A[K], B[K]) such that 0 ≤ K &lp; N, there should exist a nail C[I] such that I &lp; J and A[K] ≤ C[I] ≤ B[K].</p>
+    <p>For example, given arrays A, B such that:</p>
+    <code>
+        A[0] = 1 B[0] = 4
+        <br/>A[1] = 4 B[1] = 5
+        <br/>A[2] = 5 B[2] = 9
+        <br/>A[3] = 8 B[3] = 10
+    </code>
+    <p>four planks are represented: [1, 4], [4, 5], [5, 9] and [8, 10].</p>
+    <p>Given array C such that:</p>
+    <code>C[0] = 4
+        <br/>C[1] = 6
+        <br/>C[2] = 7
+        <br/>C[3] = 10
+        <br/>C[4] = 2</code>
+    <p>if we use the following nails:</p>
+    <code>0, then planks [1, 4] and [4, 5] will both be nailed.
+        <br/>0, 1, then planks [1, 4], [4, 5] and [5, 9] will be nailed.
+        <br/>0, 1, 2, then planks [1, 4], [4, 5] and [5, 9] will be nailed.
+        <br/>0, 1, 2, 3, then all the planks will be nailed.</code>
+    <p>Thus, four is the minimum number of nails that, used sequentially, allow all the planks to be nailed.</p>
+    <p>Write a function:</p>
+    <code>function solution(A, B, C);</code>
+    <p>that, given two non-empty zero-indexed arrays A and B consisting of N integers and a non-empty zero-indexed array C consisting of M integers, returns the minimum number of nails that, used sequentially, allow all the planks to be nailed.</p>
+    <p>If it is not possible to nail all the planks, the function should return −1.</p>
+    <p>For example, given arrays A, B, C such that:</p>
+    <code>A[0] = 1 B[0] = 4
+        <br/>A[1] = 4 B[1] = 5
+        <br/>A[2] = 5 B[2] = 9
+        <br/>A[3] = 8 B[3] = 10
+        <br/>
+        <br/>C[0] = 4
+        <br/>C[1] = 6
+        <br/>C[2] = 7
+        <br/>C[3] = 10
+        <br/>C[4] = 2</code>
+    <p>the function should return 4, as explained above.</p>
+
+
+</body>
+
+</html>

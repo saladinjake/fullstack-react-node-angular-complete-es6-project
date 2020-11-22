@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CountFactors - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count factors of given number n.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+int ans = 1, s = (int) Math.sqrt(N);
+for (int i = 2; i <= s; i++) {
+    int count = 0;
+    while (N % i == 0) {
+        N /= i;
+        count++;
+    }
+    ans *= count + 1;
+}
+return ans * (N > 1 ? 2 : 1);
+</script>
+
+<body>
+    <p>Task name: CountFactors  
+        <br/>Count factors of given number n.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/8">codility.com/programmers/lessons/8</a>
+    <br/>
+    <p>A positive integer D is a factor of a positive integer N if there exists an integer M such that N = D * M.</p>
+    <p>For example, 6 is a factor of 24, because M = 4 satisfies the above condition (24 = 6 * 4).</p>
+    <p>Write a function:</p>
+    <code>function solution(N);</code>
+    <p>that, given a positive integer N, returns the number of its factors.</p>
+    <p>For example, given N = 24, the function should return 8, because 24 has 8 factors, namely 1, 2, 3, 4, 6, 8, 12, 24. There are no other factors of 24.</p>
+
+
+</body>
+
+</html>

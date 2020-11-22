@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PermCheck - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count minimal number of jumps from position X to Y.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    arr = Array.apply(null, new Array(A.length)).map(Number.prototype.valueOf, 0);
+    for (i = 0; i < A.length; i++) {
+        arr[A[i]] += 1;
+        if (A[i] > A.length || A[i] <= 0 || arr[A[i]] > 1)
+            return 0;
+    }
+    sum = arr.reduce(function(p, c) {
+        return p + c;
+    }, 0);
+    if (sum < A.length)
+        return 0;
+    return 1;
+}
+</script>
+
+<body>
+    <p>Task name: PermCheck
+        <br/>Check whether array A is a permutation.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/2">codility.com/programmers/lessons/2</a>
+    <br/>
+    <p>A non-empty zero-indexed array A consisting of N integers is given.</p>
+    <p>A permutation is a sequence containing each element from 1 to N once, and only once.</p>
+    <p>For example, array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 1
+        <br/>A[2] = 3
+        <br/>A[3] = 2</code>
+    <p>is a permutation, but array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 1
+        <br/>A[2] = 3</code>
+    <p>is not a permutation, because value 2 is missing. The goal is to check whether array A is a permutation.</p>
+    <p>Write a function:</p>
+    <code>int solution(int A[], int N);</code>
+    <p>that, given a zero-indexed array A, returns 1 if array A is a permutation and 0 if it is not.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 1
+        <br/>A[2] = 3
+        <br/>A[3] = 2</code>
+    <p>the function should return 1.</p>
+    <p>Given array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 1
+        <br/>A[2] = 3</code>
+    <p>the function should return 0.</p>
+
+</body>
+
+</html>

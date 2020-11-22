@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MinAbsSum - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Given array of integers, find the lowest absolute sum of elements.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+
+function solution(A) {
+    var sum = 0, validCount = 0;
+    for (var i = 0; i < A.length; i++) {
+        A[i] = Math.abs(A[i]);
+        sum += A[i];
+        if (A[i] !== 0) {
+            if (i != validCount) {
+                A[validCount] = A[i];
+            }
+            validCount++;
+        }
+    }
+    var res = backSack(A, validCount, sum / 2);
+    return sum - res - res;
+}
+function backSack(A, count, sum) {
+    store = Array.apply(null, new Array(sum+1)).map(function() {return 0;});
+
+    for (var i = 0; i < count; i++) {
+        for (var j = sum; j >= 0; j--) {
+            if (j >= A[i]) {
+                store[j] = Math.max(store[j], A[i] + store[j - A[i]]);
+                if (store[j] == sum) {
+                    return sum;
+                }
+            }
+        }
+    }
+    return store[sum];
+}
+</script>
+
+<body>
+    <p>Task name: MinAbsSum
+        <br/>Given array of integers, find the lowest absolute sum of elements.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/15">codility.com/programmers/lessons/15</a>
+    <br/>
+    <p>For a given array A of N integers and a sequence S of N integers from the set {−1, 1}, we define val(A, S) as follows:</p>
+    <code>val(A, S) = |sum{ A[i]*S[i] for i = 0..N−1 }|</code>
+    <p>(Assume that the sum of zero elements equals zero.)</p>
+    <p>For a given array A, we are looking for such a sequence S that minimizes val(A,S).</p>
+    <p>Write a function:</p>
+    <code>solution(A);</code>
+    <p>that, given an array A of N integers, computes the minimum value of val(A,S) from all possible values of val(A,S) for all possible sequences S of N integers from the set {−1, 1}.</p>
+    <p>For example, given array:</p>
+    <code>
+        A[0] = 1
+        <br/>A[1] = 5
+        <br/>A[2] = 2
+        <br/>A[3] = -2</code>
+    <p>your function should return 0, since for S = [−1, 1, −1, 1], val(A, S) = 0, which is the minimum possible value.</p>
+</body>
+
+</html>

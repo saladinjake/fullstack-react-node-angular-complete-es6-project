@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NumberOfDiscIntersections - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Compute intersections between sequence of discs.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+
+function solution(A) {
+    var discs_count = A.length;            // The total number of discs
+    var range_upper = [];   // The upper limit position of discs
+    var range_lower = [];   // The lower limit position of discs
+ 
+    // Fill the limit_upper and limit_lower
+    for(var i=0; i<discs_count; i++){
+        range_upper[i] = i + A[i];
+        range_lower[i] = i - A[i];
+    }
+    range_upper.sort(function(a, b) {return a - b});
+    range_lower.sort(function(a, b) {return a - b});
+ 
+    range_lower_index = 0;
+    intersect_count = 0;
+    for( i=0; i<discs_count; i++){
+        // Compute for each disc
+        while (range_lower_index < discs_count &&
+            range_upper[i] >= range_lower[range_lower_index]) {
+            // Find all the discs that:
+            //    disc_center - disc_radius <= current_center + current_radius
+            range_lower_index ++;
+        }
+        // We must exclude some discs such that:
+        //    disc_center - disc_radius <= current_center + current_radius
+        //    AND
+        //    disc_center + disc_radius <(=) current_center + current_radius
+        // These discs are not intersected with current disc, and below the 
+        //    current one completely.
+        // After removing, the left discs are intersected with current disc,
+        //    and above the current one.
+        // Attention: the current disc is intersecting itself in this result
+        //    set. But it should not be. So we need to minus one to fix it. 
+        intersect_count += range_lower_index - i -1;
+        if (intersect_count > 10000000)
+            return -1;
+    }
+    return intersect_count;
+}
+</script>
+
+<body>
+    <p>Task name: NumberOfDiscIntersections
+        <br/>Compute intersections between sequence of discs.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/4">codility.com/programmers/lessons/4</a>
+    <br/>
+    <p>Given an array A of N integers, we draw N discs in a 2D plane such that the I-th disc is centered on (0,I) and has a radius of A[I]. We say that the J-th disc and K-th disc intersect if J ≠ K and J-th and K-th discs have at least one common point.</p>
+    <p>
+Write a function:</p>
+<code>
+function solution(A);</code>
+<p>
+that, given an array A describing N discs as explained above, returns the number of pairs of intersecting discs. For example, given N=6 and:</p>
+<code>A[0] = 1  A[1] = 5  A[2] = 2
+<br/>A[3] = 1  A[4] = 4  A[5] = 0</code>
+<p>intersecting discs appear in eleven pairs of elements:</p>
+<code>0 and 1,
+<br/>0 and 2,
+<br/>0 and 4,
+<br/>1 and 2,
+<br/>1 and 3,
+<br/>1 and 4,
+<br/>1 and 5,
+<br/>2 and 3,
+<br/>2 and 4,
+<br/>3 and 4,
+<br/>4 and 5.</code>
+<p>
+so the function should return 11.</p>
+<p>
+The function should return −1 if the number of intersecting pairs exceeds 10,000,000.</p>
+
+
+</body>
+
+</html>

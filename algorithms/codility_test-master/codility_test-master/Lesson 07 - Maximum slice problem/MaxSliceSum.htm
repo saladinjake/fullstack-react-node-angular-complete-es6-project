@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MaxSliceSum - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find a maximum sum of a compact subsequence of array elements.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var ans = A[0],
+        sum = 0;
+    for (i = 0; i < A.length; i++) {
+        if (sum > 0) {
+            sum += A[i];
+        } else {
+            sum = A[i];
+        }
+        ans = Math.max(ans, sum);
+    }
+    return ans;
+}
+</script>
+
+<body>
+    <p>Task name: MaxSliceSum
+        <br/>Find a maximum sum of a compact subsequence of array elements.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/7">codility.com/programmers/lessons/7</a>
+    <br/>
+    <p>A non-empty zero-indexed array A consisting of N integers is given. A pair of integers (P, Q), such that 0 ≤ P ≤ Q &lt; N, is called a slice of array A. The sum of a slice (P, Q) is the total of A[P] + A[P+1] + ... + A[Q].</p>
+    <p>Write a function:</p>
+    <code>int solution(int A[], int N);</code>
+    <p>that, given an array A consisting of N integers, returns the maximum sum of any slice of A. For example, given array A such that:</p>
+    <code>A[0] = 3 A[1] = 2 A[2] = -6
+        <br/>A[3] = 4 A[4] = 0</code>
+    <p>the function should return 5 because:</p>
+    <code>(3, 4) is a slice of A that has sum 4,
+        <br/>(2, 2) is a slice of A that has sum −6,
+        <br/>(0, 1) is a slice of A that has sum 5,</code>
+    <p>no other slice of A has sum greater than (0, 1).</p>
+</body>
+
+</html>

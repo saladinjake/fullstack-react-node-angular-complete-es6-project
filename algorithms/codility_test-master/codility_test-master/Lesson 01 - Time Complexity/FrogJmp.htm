@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FrogJmp - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count minimal number of jumps from position X to Y.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+	function solution(X, Y, D) {
+	    var jumps = Math.floor((Y - X) / D);
+	    if ((Y - X) % D > 0) {
+	        return jumps + 1;
+	    }
+	    return jumps;
+	}
+</script>
+
+<body>
+    <p>Task name: FrogJmp
+        <br/>Count minimal number of jumps from position X to Y.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/1">codility.com/programmers/lessons/1</a>
+    <br/>
+    <p>A small frog wants to get to the other side of the road. The frog is currently located at position X and wants to get to a position greater than or equal to Y. The small frog always jumps a fixed distance, D.</p>
+    <p>Count the minimal number of jumps that the small frog must perform to reach its target.</p>
+    <p>Write a function:</p>
+    <code>function solution(X, Y, D);</code>
+    <p>that, given three integers X, Y and D, returns the minimal number of jumps from position X to a position equal to or greater than Y.</p>
+    <p>For example, given:</p>
+    <code>X = 10
+        <br/>Y = 85
+        <br/>D = 30</code>
+    <p>the function should return 3, because the frog will be positioned as follows:</p>
+    <code>after the first jump, at position 10 + 30 = 40
+        <br/>after the second jump, at position 10 + 30 + 30 = 70
+        <br/>after the third jump, at position 10 + 30 + 30 + 30 = 100</code>
+    
+</body>
+
+</html>

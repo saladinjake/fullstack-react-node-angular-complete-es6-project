@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MinPerimeterRectangle - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the minimal perimeter of any rectangle whose area equals N.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(N) {
+    var sumMin = Number.MAX_VALUE;
+    for (i = 1; i <= Math.sqrt(N); i++) {
+        if (N % i === 0) {
+            if (2 * (i + N / i) < sumMin) sumMin = 2 * (i + N / i);
+        }
+    }
+    return sumMin;
+}
+</script>
+
+<body>
+    <p>Task name: MinPerimeterRectangle
+        <br/>Find the minimal perimeter of any rectangle whose area equals N.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/8">codility.com/programmers/lessons/8</a>
+    <br/>
+    <p>An integer N is given, representing the area of some rectangle.</p>
+    <p>The area of a rectangle whose sides are of length A and B is A * B, and the perimeter is 2 * (A + B).</p>
+    <p>The goal is to find the minimal perimeter of any rectangle whose area equals N. The sides of this rectangle should be only integers.</p>
+    <p>For example, given integer N = 30, rectangles of area 30 are:</p>
+    <code>(1, 30), with a perimeter of 62,
+        <br/>(2, 15), with a perimeter of 34,
+        <br/>(3, 10), with a perimeter of 26,
+        <br/>(5, 6), with a perimeter of 22.</code>
+    <p>Write a function:</p>
+    <code>function solution(N);</code>
+    <p>that, given an integer N, returns the minimal perimeter of any rectangle whose area is exactly equal to N.</p>
+    <p>For example, given an integer N = 30, the function should return 22, as explained above.</p>
+</body>
+</html>

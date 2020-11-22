@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ladder - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count the number of different ways of climbing to the top of a ladder.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A, B) {
+    // we know that the result of a number modulo 2^P is the bit under P, so
+    // if we first let the number modulo 2^Q(Q > P) and then modulo 2^P, the
+    // result is the same.
+    var len = A.length;
+    var fib = new Array(len + 2);
+    var result = new Array(len);
+    fib[1] = 1;
+    fib[2] = 2;
+    for (var i = 3; i <= len; i++) {
+        // make sure the fibonacci number will not exceed the max integer in java
+        fib[i] = (fib[i - 1] + fib[i - 2]) % (1 << 30);
+    }
+    for (i = 0; i < len; i++) {
+        result[i] = fib[A[i]] % (1 << B[i]);
+    }
+    return result;
+}
+</script>
+
+<body>
+    <p>Task name: Ladder
+        <br/>Count the number of different ways of climbing to the top of a ladder.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/11">codility.com/programmers/lessons/11</a>
+    <br/>
+    <p>
+        You have to climb up a ladder. The ladder has exactly N rungs, numbered from 1 to N. With each step, you can ascend by one or two rungs. More precisely:
+    </p>
+    <code>
+        with your first step you can stand on rung 1 or 2,
+        <br/>if you are on rung K, you can move to rungs K + 1 or K + 2,
+        <br/>finally you have to stand on rung N.</code>
+    <p>Your task is to count the number of different ways of climbing to the top of the ladder.</p>
+    <p>For example, given N = 4, you have five different ways of climbing, ascending by:</p>
+    <code>1, 1, 1 and 1 rung,
+        <br/>1, 1 and 2 rungs,
+        <br/>1, 2 and 1 rung,
+        <br/>2, 1 and 1 rungs, and
+        <br/>2 and 2 rungs.</code>
+    <p>Given N = 5, you have eight different ways of climbing, ascending by:</p>
+    <code>1, 1, 1, 1 and 1 rung,
+        <br/>1, 1, 1 and 2 rungs,
+        <br/>1, 1, 2 and 1 rung,
+        <br/>1, 2, 1 and 1 rung,
+        <br/>1, 2 and 2 rungs,
+        <br/>2, 1, 1 and 1 rungs,
+        <br/>2, 1 and 2 rungs, and
+        <br/>2, 2 and 1 rung.</code>
+    <p>The number of different ways can be very large, so it is sufficient to return the result modulo 2P, for a given integer P.</p>
+    <p>Write a function:</p>
+    <code>function solution(A, B);</code>
+    <p>that, given two non-empty zero-indexed arrays A and B of L integers, returns an array consisting of L integers specifying the consecutive answers; position I should contain the number of different ways of climbing the ladder with A[I] rungs modulo 2B[I].</p>
+    <p>For example, given L = 5 and:</p>
+    <code>
+        A[0] = 4 B[0] = 3
+        <br/>A[1] = 4 B[1] = 2
+        <br/>A[2] = 5 B[2] = 4
+        <br/>A[3] = 5 B[3] = 3
+        <br/>A[4] = 1 B[4] = 1
+    </code>
+    <p>the function should return the sequence [5, 1, 8, 0, 1], as explained above.</p>
+
+
+</body>
+
+</html>

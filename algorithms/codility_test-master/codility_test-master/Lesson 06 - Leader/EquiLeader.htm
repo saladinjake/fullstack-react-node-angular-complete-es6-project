@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EquiLeader - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var count = 0,
+        multiply = 0;
+    for (i = 0; i < A.length; i++) {
+        if (A[i] === 0) {
+            multiply = multiply + 1;
+        }
+        if (multiply > 0) {
+            if (A[i] == 1) {
+                count = count + multiply;
+                if (count > 1000000000) {
+                    return -1;
+                }
+            }
+        }
+    }
+    return count;
+}
+</script>
+
+<body>
+    <p>Task name: EquiLeader
+        <br/>Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/6">codility.com/programmers/lessons/6</a>
+    <br/>
+    <p>A non-empty zero-indexed array A consisting of N integers is given.</p>
+    <p>The leader of this array is the value that occurs in more than half of the elements of A.</p>
+    <p>An equi leader is an index S such that 0 ≤ S &lt; N − 1 and two sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N − 1] have leaders of the same value.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 3
+        <br/>A[2] = 4
+        <br/>A[3] = 4
+        <br/>A[4] = 4
+        <br/>A[5] = 2</code>
+    <p>we can find two equi leaders:</p>
+    <code>0, because sequences: (4) and (3, 4, 4, 4, 2) have</code>
+    <p>the same leader, whose value is 4.</p>
+    <code>2, because sequences: (4, 3, 4) and (4, 4, 2) have</code>
+    <p>the same leader, whose value is 4.</p>
+    <p>The goal is to count the number of equi leaders.</p>
+    <p>Write a function:</p>
+    <code>int solution(int A[], int N);</code>
+    <p>that, given a non-empty zero-indexed array A consisting of N integers, returns the number of equi leaders.</p>
+    <p>For example, given:</p>
+    <code>A[0] = 4
+        <br/>A[1] = 3
+        <br/>A[2] = 4
+        <br/>A[3] = 4
+        <br/>A[4] = 4
+        <br/>A[5] = 2</code>
+    <p>the function should return 2, as explained above.</p>
+
+
+</body>
+
+</html>

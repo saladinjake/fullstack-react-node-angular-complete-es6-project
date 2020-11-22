@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CountTriangles - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Count the number of triangles that can be built from a given set of edges.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var n = A.length, result = 0; 
+    A.sort(function(a, b) { return a - b }); 
+    for (var i = 0; i< n - 2; i++) { 
+        z=i + 2; 
+        for (var j=i + 1; j < n - 1; j++) { 
+            while (z < n && A[i] + A[j]>A[z]) 
+                z += 1; 
+            result += z - j - 1; 
+        } 
+    } 
+    return result;
+}
+</script>
+
+<body>
+    <p>Task name: CountTriangles
+        <br/>Count the number of triangles that can be built from a given set of edges.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/13">codility.com/programmers/lessons/13</a>
+    <br/>
+    <p>A zero-indexed array A consisting of N integers is given. A triplet (P, Q, R) is triangular if it is possible to build a triangle with sides of lengths A[P], A[Q] and A[R]. In other words, triplet (P, Q, R) is triangular if 0 ≤ P &lp; Q &lp; R &lp; N and:</p>
+    <code>
+        A[P] + A[Q] > A[R],
+        <br/>A[Q] + A[R] > A[P],
+        <br/>A[R] + A[P] > A[Q].</code>
+    <p>For example, consider array A such that:</p>
+    <code>A[0] = 10 A[1] = 2 A[2] = 5
+        <br/>A[3] = 1 A[4] = 8 A[5] = 12</code>
+    <p>There are four triangular triplets that can be constructed from elements of this array, namely (0, 2, 4), (0, 2, 5), (0, 4, 5), and (2, 4, 5).</p>
+    <p>Write a function:</p>
+    <code>function solution(A);</code>
+    <p>that, given a zero-indexed array A consisting of N integers, returns the number of triangular triplets in this array.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = 10 A[1] = 2 A[2] = 5
+        <br/>A[3] = 1 A[4] = 8 A[5] = 12</code>
+    <p>the function should return 4, as explained above.</p>
+
+
+
+</body>
+
+</html>

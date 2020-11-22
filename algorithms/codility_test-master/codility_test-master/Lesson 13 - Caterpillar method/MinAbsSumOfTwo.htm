@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MinAbsSumOfTwo - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find the minimal absolute value of a sum of two elements.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    A.sort(function(a, b) { return a - b }); 
+    
+    var value = 2000000000,
+    front_ptr = 0,
+    back_ptr = A.length-1;
+    
+    while (front_ptr <= back_ptr) {
+        value = Math.min(value, Math.abs(A[front_ptr] + A[back_ptr]));
+        if ( Math.abs(A[front_ptr]) > Math.abs(A[back_ptr]))
+            front_ptr += 1;
+        else
+            back_ptr -= 1;
+    }
+    
+    return value;
+}
+</script>
+
+<body>
+    <p>Task name: MinAbsSumOfTwo
+        <br/>Find the minimal absolute value of a sum of two elements.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/13">codility.com/programmers/lessons/13</a>
+    <br/>
+    <p>Let A be a non-empty zero-indexed array consisting of N integers.</p>
+    <p>The abs sum of two for a pair of indices (P, Q) is the absolute value |A[P] + A[Q]|, for 0 ≤ P ≤ Q &lp; N.</p>
+    <p>For example, the following array A:</p>
+    <code>A[0] = 1
+        <br/>A[1] = 4
+        <br/>A[2] = -3
+    </code>
+
+    <p>
+        has pairs of indices (0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2).
+        <br/>The abs sum of two for the pair (0, 0) is A[0] + A[0] = |1 + 1| = 2.
+        <br/>The abs sum of two for the pair (0, 1) is A[0] + A[1] = |1 + 4| = 5.
+        <br/>The abs sum of two for the pair (0, 2) is A[0] + A[2] = |1 + (−3)| = 2.
+        <br/>The abs sum of two for the pair (1, 1) is A[1] + A[1] = |4 + 4| = 8.
+        <br/>The abs sum of two for the pair (1, 2) is A[1] + A[2] = |4 + (−3)| = 1.
+        <br/>The abs sum of two for the pair (2, 2) is A[2] + A[2] = |(−3) + (−3)| = 6.
+    </p>
+    <p>Write a function:</p>
+    <code>function solution(A);</code>
+    <p>that, given a non-empty zero-indexed array A consisting of N integers, returns the minimal abs sum of two for any pair of indices in this array. For example, given the following array A:</p>
+    <code>
+        A[0] = 1
+        <br/>A[1] = 4
+        <br/>A[2] = -3
+    </code>
+    <p>the function should return 1, as explained above.</p>
+    <p>Given array A:</p>
+    <code>
+        A[0] = -8
+        <br/>A[1] = 4
+        <br/>A[2] = 5
+        <br/>A[3] =-10
+        <br/>A[4] = 3
+    </code>
+    <p>the function should return |(−8) + 5| = 3.</p>
+
+</body>
+
+</html>

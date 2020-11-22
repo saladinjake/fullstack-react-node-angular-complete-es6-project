@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AbsDistinct - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Compute number of distinct absolute values of sorted array elements.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var ans = [], num = 0;
+    for(i=0;i<A.length; i++){
+        var abs = Math.abs(A[i]);
+        if(!ans[abs]){
+            ans[abs] = 1; 
+            num++;
+        }
+    }
+    return num;
+}
+</script>
+
+<body>
+    <p>Task name: AbsDistinct
+        <br/>Compute number of distinct absolute values of sorted array elements.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/13">codility.com/programmers/lessons/13</a>
+    <br/>
+    <p>
+        A non-empty zero-indexed array A consisting of N numbers is given. The array is sorted in non-decreasing order. The absolute distinct count of this array is the number of distinct absolute values among the elements of the array.
+    </p>
+    <p>
+        For example, consider array A such that:
+    </p>
+    <code>
+        A[0] = -5
+        <br/>A[1] = -3
+        <br/>A[2] = -1
+        <br/>A[3] = 0
+        <br/>A[4] = 3
+        <br/>A[5] = 6
+    </code>
+    <p>
+        The absolute distinct count of this array is 5, because there are 5 distinct absolute values among the elements of this array, namely 0, 1, 3, 5 and 6.
+    </p>
+    <p>
+        Write a function:
+    </p>
+    <code>function solution(A);</code>
+    <p>that, given a non-empty zero-indexed array A consisting of N numbers, returns absolute distinct count of array A.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = -5
+        <br/>A[1] = -3
+        <br/>A[2] = -1
+        <br/>A[3] = 0
+        <br/>A[4] = 3
+        <br/>A[5] = 6</code>
+    <p>the function should return 5, as explained above.</p>
+
+
+</body>
+
+</html>

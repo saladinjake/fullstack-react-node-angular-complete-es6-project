@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dominator - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find an index of an array such that its value occurs at more than half of indices in the array.">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    var value = 0,
+        size = 0,
+        pos = -1;
+    for (i = 0; i < A.length; i++) {
+        if (size === 0) {
+            size++;
+            value = A[i];
+            pos = i;
+        } else {
+            if (A[i] != value)
+                size--;
+            else
+                size++;
+        }
+    }
+    var candidate = -1;
+    if (size === 0)
+        return -1;
+    var cnt = 0;
+    for (j = 0; j < A.length; j++) {
+        if (A[j] == value)
+            cnt++;
+    }
+    if (cnt > A.length / 2)
+        return pos;
+    else
+        return -1;
+}
+</script>
+
+<body>
+    <p>Task name: Dominator
+        <br/>Find an index of an array such that its value occurs at more than half of indices in the array.</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/6">codility.com/programmers/lessons/6</a>
+    <br/>
+    <p>A zero-indexed array A consisting of N integers is given. The dominator of array A is the value that occurs in more than half of the elements of A.</p>
+    <p>For example, consider array A such that</p>
+    <code>A[0] = 3 A[1] = 4 A[2] = 3
+        <br/>A[3] = 2 A[4] = 3 A[5] = -1
+        <br/>A[6] = 3 A[7] = 3</code>
+    <p>The dominator of A is 3 because it occurs in 5 out of 8 elements of A (namely in those with indices 0, 2, 4, 6 and 7) and 5 is more than a half of 8.</p>
+    <p>Write a function</p>
+    <code>int solution(int A[], int N);</code>
+    <p>that, given a zero-indexed array A consisting of N integers, returns index of any element of array A in which the dominator of A occurs. The function should return −1 if array A does not have a dominator.</p>
+
+
+</body>
+
+</html>

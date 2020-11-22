@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MaxProductOfThree - codility</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Maximize A[P] * A[Q] * A[R] for any triplet (P, Q, R).">
+    <meta name="author" content="senei">
+</head>
+
+<script type="text/javascript">
+function solution(A) {
+    cnt = A.length;
+    A.sort(function(a, b) {
+        return a - b
+    }); //important
+    return Math.max(A[0] * A[1] * A[cnt - 1], A[cnt - 1] * A[cnt - 2] * A[cnt - 3]);
+}
+</script>
+
+<body>
+    <p>Task name: MaxProductOfThree
+        <br/>Maximize A[P] * A[Q] * A[R] for any triplet (P, Q, R).</p>
+    <br/>
+    <a href="https://codility.com/programmers/lessons/4">codility.com/programmers/lessons/4</a>
+    <br/>
+    <p>A non-empty zero-indexed array A consisting of N integers is given. The product of triplet (P, Q, R) equates to A[P] * A[Q] * A[R] (0 ≤ P &lt; Q &lt; R &lt; N).</p>
+    <p>For example, array A such that:</p>
+    <code>A[0] = -3
+        <br/>A[1] = 1
+        <br/>A[2] = 2
+        <br/>A[3] = -2
+        <br/>A[4] = 5
+        <br/>A[5] = 6</code>
+    <p>contains the following example triplets:</p>
+    <code>(0, 1, 2), product is −3 * 1 * 2 = −6
+        <br/>(1, 2, 4), product is 1 * 2 * 5 = 10
+        <br/>(2, 4, 5), product is 2 * 5 * 6 = 60</code>
+    <p>Your goal is to find the maximal product of any triplet.</p>
+    <p>Write a function:</p>
+    <code>function solution(A);</code>
+    <p>that, given a non-empty zero-indexed array A, returns the value of the maximal product of any triplet.</p>
+    <p>For example, given array A such that:</p>
+    <code>A[0] = -3
+        <br/>A[1] = 1
+        <br/>A[2] = 2
+        <br/>A[3] = -2
+        <br/>A[4] = 5
+        <br/>A[5] = 6</code>
+    <p>the function should return 60, as the product of triplet (2, 4, 5) is maximal.</p>
+
+
+</body>
+
+</html>
