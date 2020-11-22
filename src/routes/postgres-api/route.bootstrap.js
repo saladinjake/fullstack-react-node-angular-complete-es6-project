@@ -1,9 +1,9 @@
-import { PostgresApiEndpoints } from './pg/pg.routes';
-import { SequelizeApiEndpoints } from './pg/sequelize.routes';
+// import { PostgresApiEndpoints } from './pg/pg.routes';
+// import { SequelizeApiEndpoints } from './pg/sequelize.routes';
 export const routes = (router) => {
   return {
-      'Illuiminate.PostgresApiEndpoints': new PostgresApiEndpoints(router),
-      'Illuiminate.SequelizeApiEndpoints': new SequelizeApiEndpoints(router),
+      // 'Illuiminate.PostgresApiEndpoints': new PostgresApiEndpoints(router),
+      // 'Illuiminate.SequelizeApiEndpoints': new SequelizeApiEndpoints(router),
 
       router
   }
