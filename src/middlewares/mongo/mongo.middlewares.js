@@ -1,9 +1,11 @@
-import {verifyToken, verifyAdminToken} from './core/auth.middleware';
+import { verifyToken, verifyAdminToken } from './core/auth.middleware';
+import { AuthSanitizer } from './core/auth.sanitizer.middleware';
 
-
-
-
-export default {
+const Middleware = {
   verifyToken,
-  verifyAdminToken
+  verifyAdminToken,
+  AuthSanitizer
 }
+
+
+export default Middleware;

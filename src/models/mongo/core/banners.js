@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
-      Schema = mongoose.Schema,
-      ObjectId = Schema.ObjectId;
+   Schema = mongoose.Schema,
+     ObjectId = Schema.ObjectId;
 
 const BannersSchema = new Schema({
   id           : { type : Number, required: true },

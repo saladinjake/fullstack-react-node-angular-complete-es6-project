@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import GuestController from '../controllers/mongo/core/guest.controller';
+import  Controllers  from '../../../controllers/mongo/mongo.controller';
+const  GuestController =  Controllers.GuestController;
 
 const ABOUT_LINK = '/guest/#about';
 const HOME_LINK = '/guest/#welcome';
@@ -9,19 +10,17 @@ const PRIVACY_LINK = '/guest/#privacy';
 const OFFERS_LINK = '/guest/#offers';
 
 
-class GuestRoutes {
+export class GuestRoutes {
   constructor(router) {
     this.router = router;
   }
   attachRoutes() {
     // api contents
-    this.router.get(HOME_LINK,GuestController.getHomeContent);
-    this.router.get(ABOUT_LINK,GuestController.getAboutContent);
-    this.router.get(ABOUT_LINK,GuestController.getTermsContent);
-    this.router.get(HOME_LINK,GuestController.getPrivacyContent);
-    this.router.get(ABOUT_LINK,GuestController.getOffersContent);
+    this.router.get(HOME_LINK,GuestController.index);
+    this.router.get(ABOUT_LINK,GuestController.about);
+    this.router.get(ABOUT_LINK,GuestController.termsAndConditions);
+    this.router.get(HOME_LINK,GuestController.privacyData);
+    this.router.get(ABOUT_LINK,GuestController.offers);
   }
 
 }
-
-export default GuestRoutes;
