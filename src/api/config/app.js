@@ -1,16 +1,21 @@
 const path = require('path')
-
+const { DB_LINK_STAGING,DB_LINK_PRODUCTION,DB_LINK_DEVELOPMENT } = process.env;
 let rootPath = path.normalize(path.join(__dirname, '/../../'))
 
 module.exports = {
-  development: {
+  "DEVELOPMENT": {
     rootPath: rootPath,
-    db: 'mongodb://localhost:27017/bethlehem-bets-db',
+    db: DB_LINK_DEVELOPMENT || 'mongodb://localhost:27017/bethlehem-bets-db',
     port: 5000
   },
-  staging: {
+  "STAGING": {
+    rootPath: rootPath,
+    db: DB_LINK_STAGING || 'mongodb://localhost:27017/bethlehem-bets-db',
+    port: 7000
   },
-  production: {
-    port: process.env.PORT
+  "PRODUCTION": {
+    rootPath: rootPath,
+    port: process.env.PORT,
+    db: DB_LINK_PRODUCTION || 'mongodb://localhost:27017/bethlehem-bets-db',
   }
 }

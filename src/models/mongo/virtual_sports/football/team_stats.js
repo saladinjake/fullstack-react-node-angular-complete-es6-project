@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Team = require('./Team');
+const Team = require('./teams');
 
 let teamStatsSchema = new mongoose.Schema({
   team: { type: mongoose.SchemaTypes.ObjectId, ref: 'Team' },
@@ -22,7 +22,7 @@ module.exports.seedTeamStats = async () => {
     return;
   }
 
-  let teamStats = require('../data/team-stats.json');
+  let teamStats = require('../../db/data/virtual/football/clubs.premiersports.statistics.json');
   for (let stat of teamStats) {
     let teamId = await Team.findOne({ 'name': stat.name }, '_id');
 

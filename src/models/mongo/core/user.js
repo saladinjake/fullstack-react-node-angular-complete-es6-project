@@ -2,13 +2,14 @@ import mongoose from 'mongoose';
 import  Location  from './geo_location';
 import Currencies  from './currencies';
 import Orders  from './jackpots';
+import TokenGenerator from '../../../utils/tokengen.utils';
 
 const Schema = mongoose.Schema;
 
 
 const UserSchema = new Schema({
-  firstName   : { type : String, required: true, trim: true },
-  lastName    : { type : String, required: true, trim: true },
+  firstname   : { type : String, required: true, trim: true },
+  lastname    : { type : String, required: true, trim: true },
   email       : { type : String, required: true, trim: true },
   address     : { type : String, required: true, trim: true },
   city        : { type : String, required: true, trim: true },
@@ -21,4 +22,25 @@ const UserSchema = new Schema({
   orders      : [ Orders ],
 });
 
-module.exports = mongoose.model('User', UserSchema, 'users');
+
+let User = mongoose.model('User', UserSchema)
+
+module.exports = User
+module.exports.seedAdminUser = () => {
+  User.find({}).then(users => {
+    if (users.length > 0) return
+
+    // let salt = encryption.generateSalt()
+    let password = TokenGenerator.hashPassword('admin')
+
+    User.create({
+      email: 'admin@admin.com',
+      username: 'Admin',
+      firstname: 'Admin',
+      lastname: 'Admin',
+      password: password,
+      roles: ['Admin'],
+      is_admin: true
+    })
+  })
+}

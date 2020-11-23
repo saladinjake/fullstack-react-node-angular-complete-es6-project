@@ -3,7 +3,14 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 const Utils = {
 
-    readHTMLFile(path, callback) {
+  calculateAge(dateOfBirthAsStr) {
+    let dateOfBirth = new Date(dateOfBirthAsStr);
+    let ageDiffMs = Date.now() - dateOfBirth.getTime();
+    let ageDate = new Date(ageDiffMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  },
+
+  readHTMLFile(path, callback) {
       fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
           if (err) {
               throw err;
@@ -15,16 +22,11 @@ const Utils = {
       });
   },
 
-  /**
-   * @description - validate password by comparing password with hash password
-   * @param {string} password
-   * @param {string} hashpassword
-   * @returns {boolean} boolean to show if password match or not
-   */
+
   validatePassword(password, userPassword) {
     return bcrypt.compareSync(password, userPassword);
   },
-  
+
   /**
    * @description - remove null key from ab object
    * @param {object}

@@ -1,28 +1,21 @@
-//get banner models
-//get side Notification
-//get modal info
-//get getContext
 
+import GuestService from '../../../services/virtualsports/football/guest.service';
 export class GuestController{
    static async index(request, response){
- //use multiple resolve promise
-    // let banners = await Banners.find()
-    // let modals = await Modals.find()
-    // let sideNotification = await Notification.find()
-    // let currentVirtualMatchesAppetizer = await VirtualSports.find()
-  }
+     let results  = await GuestService.launch(request,response);
+   }
 
-  static async matchPreview(request, response){
+   static async matchesBetsPreview(request, response){
     //this would preview in a modal
     // let currentVirtualMatchesAppetizer = await VirtualSports.find({id : request._id})
-  }
+   }
 
-  static async about(request, response){
+   static async about(request, response){
 
-  }
+   }
 
-  static termsAndConditions(request,response){}
+   static termsAndConditions(request,response){}
 
-  static privacyData(request,response){}
-  static offers(request,response){}
+   static privacyData(request,response){}
+   static offers(request,response){}
 }

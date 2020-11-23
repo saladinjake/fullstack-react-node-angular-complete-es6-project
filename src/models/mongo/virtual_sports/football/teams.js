@@ -17,7 +17,7 @@ module.exports.seedTeams = async () => {
             return;
       }
 
-      let teams = require('../data/teams.json');
+      let teams = require('../../db/data/virtual/football/clubs.premierleagues.json');
       for (let team of teams) {
             Team.create({
                   name: team.name,

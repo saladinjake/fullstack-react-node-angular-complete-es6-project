@@ -6,9 +6,15 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 
-
 import { BaseRouter } from '../routes/base.routes';
 
+
+let env = process.env.NODE_ENV || 'DEVELOPMENT';
+
+let settings = require('./config/app')
+settings = settings.DEVELOPMENT;
+// console.log(settings, env)
+require('../models/mongo/database')(settings)
 
 
 export class App{
