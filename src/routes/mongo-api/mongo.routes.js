@@ -1,15 +1,15 @@
-import { DummyController } from '../../controllers/mongo/mongo.controller';
-import { verifyToken, verifyAdminToken } from '../../middlewares/mongo/mongo.middlewares';
+// import { verifyToken, verifyAdminToken } from '../../middlewares/mongo/mongo.middlewares';
+import { GuestRoutes } from './core/guest.route';
+import { AuthRoutes } from './core/auth.route';
 
 export class MongoRoutes{
    constructor(router){
      this.router = router
    }
    attachedRoutes(){
-
-  this.router.get('/mongo-request', (req,res)=>{
-     console.log("magic football api")
-   });
+     //call the attached routes of all other routes in the mongo routes
+     new GuestRoutes(this.router).attachRoutes()
+     new AuthRoutes(this.router).attachRoutes()
 
    }
 }

@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const User = require('./core/user');
-const Team = require('./virtual_sports/football/teams');
-const TeamStats = require('./virtual_sports/football/team_stats');
-const Fixture = require('./virtual_sports/football/fixtures');
+import mongoose from 'mongoose'
+import User from './core/user';
+import Team from './virtual_sports/football/teams';
+import TeamStats from './virtual_sports/football/team_stats';
+import Fixture from './virtual_sports/football/fixtures';
 
 mongoose.Promise = global.Promise
 
