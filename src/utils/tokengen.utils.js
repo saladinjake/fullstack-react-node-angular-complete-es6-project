@@ -18,12 +18,14 @@ export class TokenGenerator {
    return token;
  }
 
+
+
+
  /**
   * @description - encypt password
   * @param {object} password
   * @returns {object} hashpassword
   */
-
 
  static hashPassword(password) {
    const hashedPassword = bcrypt.hashSync(password, 10);

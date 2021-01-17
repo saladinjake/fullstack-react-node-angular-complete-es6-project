@@ -1,8 +1,14 @@
 import nodemailer from 'nodemailer';
 import debug from 'debug';
 import handlebars from 'handlebars';
+import Utils from './common.utils';
+import path from 'path'
 
 
+import MailConfig from './config/mail';
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+var gmailTransport = MailConfig.GmailTransport;
+var smtpTransport = MailConfig.SMTPTransport;
 
 const {
   APP_NAME,APP_DOMAIN, APP_ADDRESS,
@@ -26,41 +32,9 @@ const MAIL_OPTION = {
  *
  * @returns {void} void
  */
-const mailer = async (mailData) => {
-  const {
-    to, subject, text, html,
-  } = mailData;
-
-  try {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-
-    const info = await transporter.sendMail({
-      from: '"Banka App " <tejumoladavid@gmail.com>',
-      to,
-      subject,
-      text,
-      html,
-    });
-
-    debug('development')('Message sent: %s', info.messageId);
-    debug('development')('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-  } catch (err) {
-    debug('development')(err);
-  }
-};
-
-
 export const  passwordResetsMail = async function(userEmail,templateDir, replacementObj={username:'saladin'}, tokenSTR){
 
-  readHTMLFile(__dirname + templateDir, function(err, html) {
+  Utils.readHTMLFile('src/templates/' + templateDir, function(err, html) {
     var template = handlebars.compile(html);
     var replacements = {
       username: replacementObj.username ,//'juwavictor@gmail.com'
@@ -87,12 +61,12 @@ export const newUserMail = async function(
     tokenToSend, status=201
   ){
 
-    const file_path = __dirname + TEMP_DIR + file;
+    // const file_path = __dirname + '../templates/' + file;
 
-    readHTMLFile(file_path, function(err, html) {
+    Utils.readHTMLFile('src/templates/' + file, function(err, html) {
         const template = handlebars.compile(html);
         const replacements = {
-            username: result.username,
+            username: user.username,
             link:  BACKEND_API +'/auth/confirmation/' + tokenToSend,
         };
         const htmlToSend = template(replacements);
@@ -112,5 +86,3 @@ export const newUserMail = async function(
         });
     })
   }
-
-export default mailer;

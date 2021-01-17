@@ -5,12 +5,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 
-
 import { BaseRouter } from '../routes/base.routes';
-
-
 let env = process.env.NODE_ENV || 'DEVELOPMENT';
-
 let settings = require('./config/app')
 settings = settings.DEVELOPMENT;
 // console.log(settings, env)
@@ -27,18 +23,15 @@ export class App{
     // this.express.disable('x-')
     this.appRouter = new BaseRouter();
     this.appRouter.init();
-
     this.routes = this.appRouter.getRouter();
     this.express.get('/', (request,response)=>{
-
-
       return response.status(200).json({
         status:200,
         message: "Live with turring senior software developer"
       })
     })
     this.port = process.env.PORT || 3001;
-    this.express.use('api/v1', this.routes)
+    this.express.use('/api/v1', this.routes)
   }
 
   run(){

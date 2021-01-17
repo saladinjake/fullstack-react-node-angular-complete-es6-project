@@ -26,14 +26,20 @@ export class AuthRoutes {
 
   attachRoutes() {
     // simplelogins logOut confirmationPost changePasswordTriggerMobile resendTokenPost passwordForgot resendTokenPost confirmResetPassword changePasswordTrigger
-    this.router.post(SIGNUP_LINK,AuthSanitizer.validateSignUp,AuthSanitizer.checkIfUserExists,AuthController.signup);
-    this.router.post(LOGIN_LINK,AuthSanitizer.validateLogin,AuthSanitizer.checkIfUserIsBanned,AuthController.login);
-    this.router.get(CONFIRMATION_LINK, AuthController.confirmationPost);
-    this.router.get(RESEND_LINK, AuthController.resendTokenPost);
+    this.router.post(SIGNUP_LINK,
+      AuthSanitizer.validateSignUp,
+      AuthSanitizer.checkIfUserExists,
+      AuthController.signup);
+    this.router.post(LOGIN_LINK,
+      // AuthSanitizer.validateLogin,
+      // AuthSanitizer.checkIfUserIsBanned,
+      AuthController.login);
+    this.router.get('/auth/confirmation/:id', AuthController.confirmationPost);
+    this.router.get('/auth/resend/:id', AuthController.resendTokenPost);
     this.router.post(FORGOTPASSWORD_LINK, AuthController.passwordForgot);
-    this.router.get(RESET_LINK, AuthController.confirmResetPassword);//show form
+    this.router.get('/auth/resetMyPassword/:id', AuthController.confirmResetPassword);//show form
     this.router.post('/auth/resetpassword', AuthController.changePasswordTrigger);
-    this.router.post('/auth/resetpassword/mobile', AuthController.changePasswordTriggerMobile);
+    // this.router.post('/auth/resetpassword/mobile', AuthController.changePasswordTriggerMobile);
     this.router.get(LOGIN_OUT, AuthController.logOut);
   }
 

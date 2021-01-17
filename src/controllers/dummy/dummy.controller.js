@@ -7,7 +7,6 @@ export class DummyController{
     this.defaultRoute = "index"
   }
    static getAll(request,response){
-
       if( DUMMY_DATABASE.length <=0 ){
          return response.status(400).json({
            status: 400,
@@ -28,7 +27,6 @@ export class DummyController{
 
    static getById(request,response){
      const validId = !Number(request.params.id)
-
      if(validId) {
         return response.status(400).json(
        {
@@ -40,7 +38,6 @@ export class DummyController{
 
     }else{
        const result = DummyController.findAndRespond(validId)
-
        return response.status(200).json(
          {
            status: 200,
@@ -67,7 +64,6 @@ export class DummyController{
 
    static update(request,response){
      const validId = !Number(request.params.id)
-
      if(validId) {
         return response.status(400).json(
        {
@@ -76,14 +72,12 @@ export class DummyController{
          message : "Invalid ID Resource"
        }
      )
-
     }else{
        const {title,description} = request.body;
        const result = DummyController.findAndRespond(validId);
        const index = DUMMY_DATABASE_RECORD_TABLE.indexOf(result);
        const deleteOperation = DUMMY_DATABASE_RECORD_TABLE.splice(index,1)
        DUMMY_DATABASE[index] = {title,description}
-
        return response.status(200).json(
          {
            status: 200,
@@ -97,7 +91,6 @@ export class DummyController{
 
    static delete(request,response){
      const validId = !Number(request.params.id)
-
      if(validId) {
         return response.status(400).json(
        {
@@ -111,7 +104,6 @@ export class DummyController{
        const result = DummyController.findAndRespond(id);
        const index = DUMMY_DATABASE_RECORD_TABLE.indexOf(result);
        const deleteOperation = DUMMY_DATABASE_RECORD_TABLE.splice(index,1)
-
        return response.status(200).json(
          {
            status: 200,
@@ -131,7 +123,6 @@ export class DummyController{
 
    static login(request,response){
      const user = DUMMY_DATABASE_USER_TABLE.filter(user => user.email == request.body.email )
-
      if(user){
        //if user exist during login then check matching password
        this.passed = false;

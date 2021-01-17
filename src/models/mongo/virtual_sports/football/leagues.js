@@ -6,6 +6,23 @@ let LeagueSchema = new mongoose.Schema({
 
 });
 
-  let League = mongoose.model('League', LeagueSchema)
-
-  module.exports = League;
+module.exports = League
+// module.exports.seedMenu = async () => {
+//   let LeagueStatsDb = await League.find({});
+//
+//   if (LeagueStatsDb.length > 0) {
+//     return;
+//   }
+//
+//
+//     let about = require('../db/data/core/leagues.json');
+//     for (let ab of about) {
+//       League.create({
+//         title: ab.title,
+//         teams_category: ab.teams,
+//
+//       })
+//     }
+//
+//
+//   }

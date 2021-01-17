@@ -1,11 +1,13 @@
-import TokenGenerator from '../../utils/tokengen.utils';
-import mailer, { newUserMail, passwordResetsMail } from '../../utils/mailer.utils';
+import { TokenGenerator } from '../../utils/tokengen.utils';
+import { newUserMail, passwordResetsMail } from '../../utils/mailer.utils';
 import Utils from '../../utils/common.utils';
 import User from '../../models/mongo/core/user';
 import SignUpToken from '../../models/mongo/core/signuptoken';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import Storage from '../../utils/storage.utils';
+
+
 
 
 
@@ -99,8 +101,9 @@ class AuthService {
     };
     const token = TokenGenerator.generateToken(result);
        //if request host is from user and user role is user or admin allow
-      //  if(request.headers.host=="demouserapp.commute.ng" && user.roles!="Individual Driver"){
-     return response.status(200).json({
+      //  if(request.headers.host=="demouserapp.ng" && user.roles!="Individual Driver"){
+     return  {
+
          status: 200,
          data: [
            {
@@ -114,7 +117,9 @@ class AuthService {
            },
          ],
          message: 'Successfully signed in',
-       });
+       }
+
+
   }
 
   /**
@@ -145,7 +150,7 @@ class AuthService {
   }
   static async confirmationPost(request,response){
     // Find a matching token
-    const confirmToken = await SignUpToken.findOne({ email_confirm_token:  req.params.id })
+    const confirmToken = await SignUpToken.findOne({ email_confirm_token:  request.params.id })
     if (!confirmToken) return response.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
         // If we found a token, find a matching user email: req.body.email
     const user =    User.findOne({ _id: confirmToken._userId  })
@@ -158,19 +163,19 @@ class AuthService {
     // Verify and save the user
     let userUpdated  = await User.updateOne({_id:user._id },{isVerified: true},);
     if (!userUpdated) { return response.status(500).send({ msg: 'Update for this user not successful' }); }
-    return  res.sendFile(path.join(__dirname + '/templates/congratulation.html'));
+    return  response.sendFile(path.join(__dirname + '/templates/congratulation.html'));
 
   }
 
   static async resendTokenPost(request,response){
-    const user = UserModel.findOne({ email: req.params.id })
-    if (!user) return res.status(400).send({ msg: 'We were unable to find a user with that email.' });
-    if (user.isVerified) return  res.sendFile(path.join(__dirname + '/templates/alreadyverified.html'));
+    const user = User.findOne({ email: request.params.id })
+    if (!user) return response.status(400).send({ msg: 'We were unable to find a user with that email.' });
+    if (user.isVerified) return  response.sendFile(path.join(__dirname + '/templates/alreadyverified.html'));
         // Create a verification token, save it, and send email
     var tokenR = new EmailTokenMakerForSignUp({ _userId: user.id, email_confirm_token: crypto.randomBytes(16).toString('hex') });
         // Save the token
     const savedToken = await tokenR.save();
-    if (err) { return res.status(500).send({ msg: err.message }); }
+    if (!savedToken) { return response.status(500).send({ msg: err.message }); }
     const result = {
       id:user.id,
       username: user.username,
@@ -180,7 +185,7 @@ class AuthService {
 
     const emailSent = await newUserMail(result,'newuser.html', tokenR.email_confirm_token, 200)
     const tokenN = TokenGenerator.generateToken(result);
-    return res.status(200).json({
+    return response.status(200).json({
       status: 200,
       data: [
           {
@@ -192,9 +197,9 @@ class AuthService {
     });
   }
   static async passwordForgot(request,response){
-    let email = req.body.email;
+    let email = request.body.email;
     let user = await  User.findOne({ email: email })
-    if (!user) return res.status(400).send({ msg: 'We were unable to find a user with that email.' });
+    if (!user) return response.status(400).send({ msg: 'We were unable to find a user with that email.' });
     let hashedStringToSend = crypto.randomBytes(16).toString('hex');
     Storage.setItem('hasher'+ user._id, hashedStringToSend);
     Storage.setItem('-'+ user._id, user._id);
@@ -207,10 +212,14 @@ class AuthService {
             // Save the verification token
     const forgotToken  = await ForgotModelToken.save();
     if (!forgotToken ) {
-        return res.status(500).send({ msg: err.message });
+        return response.status(500).send({ msg: err.message });
     }
     const mailSent = await passwordResetsMail( user.email,'resetpassword.html', {username:user.username}, hashedStringToSend)
-    // return res.status(200).send({ msg: "successfully sent you a password reset link", status:'ok' });
+    if(mailSent){
+      return response.status(200).send({ msg: "successfully sent you a password reset link", status:'ok' });
+    }
+    return response.status(200).send({ msg: "some error occured", status:'failed' });
+
   }
 
   static confirmResetPassword(request,response){
@@ -222,22 +231,22 @@ class AuthService {
     let confirmPass = request.body.confirmPassword;
     let uid =  Storage.getItem('-'+ request.body.id);
     if(password!= confirmPass){
-       return res.status(400).send({ msg: 'password do not match.' });
+       return response.status(400).send({ msg: 'password do not match.' });
     }
     const passwordToken = await ForgotPasswordToken.findOne({  email_confirm_token:  Storage.getItem('hasher'+uid) });
     if (!token) {
-      return res.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
+      return response.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
     }
         // If we found a token, find a matching user email: req.body.email
-    const user = await UserModel.findOne({ email: token.email_to_reset  })
-    if (!user) return res.status(400).send({ msg: 'We were unable to find a user for this token.' });
-    if (user.email != token.email_to_reset) return res.status(400).send({ type: 'No Reset Token', msg: 'This user reset token was not set.' });
+    const user = await User.findOne({ email: token.email_to_reset  })
+    if (!user) return response.status(400).send({ msg: 'We were unable to find a user for this token.' });
+    if (user.email != token.email_to_reset) return response.status(400).send({ type: 'No Reset Token', msg: 'This user reset token was not set.' });
 
             // Verify and save the user
     password = TokenGenerator.hashPassword(password.trim());
-    const usr = await UserModel.updateOne({_id: user._id},{password: password})
-    if (!usr) { return res.status(500).send({ msg: err.message }); }
-    return res.status(200).send({ msg:"The account password has been reset. Please wait..." , status:'ok'});
+    const usr = await User.updateOne({_id: user._id},{password: password})
+    if (!usr) { return response.status(500).send({ msg: err.message }); }
+    return response.status(200).send({ msg:"The account password has been reset. Please wait..." , status:'ok'});
 
   }
 }

@@ -73,6 +73,7 @@ export default class TokenVerification {
   }
 
   static adminAuthentication(request, response, next) {
+    console.log(request.user)
     if (request.user.isAdmin === false) {
       console.log('error validating admin token');
       return response.status(403).json({

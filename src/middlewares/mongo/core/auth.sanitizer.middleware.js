@@ -38,7 +38,7 @@ export class AuthSanitizer {
 
         }else{
 
-           console.log("this user does not : " + JSON.stringify(result))
+           // console.log("this user does not : " + JSON.stringify(result))
           return response.status(422).json({
             status: 422,
             error: 'User does not exist on this platform',
@@ -104,12 +104,12 @@ export class AuthSanitizer {
 
     }
     console.log("email to check: "+ email)
-    User.find({email:email,status:"Active"} )
+    User.find({email:email,status:"InActive"} )
 
       .then(result => {
 
         const userExists = result;
-        if ( userExists.length<=0 ) {
+        if ( !userExists ) {
            console.log("this user exist : " + JSON.stringify(result))
           return response.status(409).json({
             status: 409,

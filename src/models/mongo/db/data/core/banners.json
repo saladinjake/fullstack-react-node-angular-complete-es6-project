@@ -1,0 +1,23 @@
+[{
+
+  "title":"Bigger bets on",
+  "caption": "Hello caption 1",
+  "description":"Short Description 1",
+  "image":"bannerA.jpg"
+},
+
+{
+
+  "title":"Bigger bets on",
+  "caption": "Hello caption 2",
+  "description":"Short Description 2",
+  "image":"bannerA.jpg"
+},
+
+{
+
+  "title":"Bigger bets on",
+  "caption": "Hello caption 3",
+  "description":"Short Description 3",
+  "image":"bannerA.jpg"
+}]
